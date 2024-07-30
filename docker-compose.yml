@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+   postgres:
+      image: postgres:latest
+      environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: coti
+          POSTGRES_DB: bdprojeto02
+      ports:
+          - "5432:5432"
+      networks:
+          - mynetwork
+
+   projeto02:
+       build:
+           context: .
+           dockerfile: Dockerfile
+       ports:
+          - "3000:3000"
+       depends_on:
+          - postgres
+       networks:
+          - mynetwork
+
+networks:
+    mynetwork:
+       driver: bridge
